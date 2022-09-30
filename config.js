@@ -1,5 +1,5 @@
 const appsDirectoriesPath = "./apps";
-const apps = ['users'];
+const apps = ['users','message','logs'];
 
 const root = __dirname;
 
@@ -16,7 +16,7 @@ const router = {
 }
 
 const storage = {
-    path : "./storage"
+    root : "./storage"
 }
 
 const server = {

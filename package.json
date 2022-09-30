@@ -10,9 +10,13 @@
   "author": "irvaniali79",
   "license": "ISC",
   "dependencies": {
+    "ajv": "^8.11.0",
     "brogrammers": "^1.0.0",
     "brogrammers_cookie": "^1.0.1",
+    "brogrammers_logger": "^3.0.0",
     "eventemitter3": "^4.0.7",
-    "redis": "^4.3.1"
+    "redis": "^4.3.1",
+    "sharp": "^0.31.0",
+    "svg-captcha": "^1.4.0"
   }
 }
