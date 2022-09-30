@@ -23,12 +23,16 @@ class Auth{
 
     };
 
-    checkLogin(cookie,arbitraryCookie){
+    async checkLogin(cookie,arbitraryCookie){
 
         const signCookie = Cookie.getSign(cookie); 
-        const sourceCookie = arbitraryCookie?
-            arbitraryCookie:
-            this.#db.get(signCookie);
+        try {
+            const sourceCookie =  arbitraryCookie? arbitraryCookie:await this.#db.get(signCookie);
+        } catch (error) {
+            error.code = "auth-database"
+            throw error;
+        }
+       
 
         if (sourceCookie && (Cookie.getSign(sourceCookie)==signCookie)){
             return true;
@@ -40,21 +44,33 @@ class Auth{
     async #makeCookie(data){
 
         const time = Date.now();
-        const cookie = Cookie.createCookie({
-            ...data,
-            time
-        },config.cookie.hostname,24*60*60*1000);
+        try {
 
-        const sign = Cookie.getSign(cookie);
-        const token = Cookie.getToken(cookie);
+            const cookie = Cookie.createCookie({
+                ...data,
+                time
+            },config.cookie.hostname,24*60*60*1000);
 
-        await this.#db.set(sign,token);
+            const sign = Cookie.getSign(cookie);
+            const token = Cookie.getToken(cookie);
+
+            await this.#db.set(sign,token);
+
+        } catch (error) {
+            error.code = "auth-database-cookie"
+            throw error;
+        }
         return cookie;
 
     }
     async login(credential){
-
-        const detectedUser = await this.loginQuery(this.Model,credential,this.#hashWithPrivateKey);
+        try {
+            const detectedUser = await this.loginQuery(this.Model,credential,this.#hashWithPrivateKey);
+        } catch (error) {
+            error.code = "login-credential";
+            error.message = "user or password is wrong"
+            throw error;
+        }
         if(detectedUser){
             const cookie = await this.#makeCookie(detectedUser);
             return {
@@ -67,7 +83,6 @@ class Auth{
 
     }
     async signup(credential){
-        
         const registerdUser = await this.signupQuery(this.Model,credential,this.#hashWithPrivateKey);
         const cookie = await this.#makeCookie(credential);
         return {
