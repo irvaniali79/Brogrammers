@@ -1,5 +1,5 @@
 const appsDirectoriesPath = "./apps";
-const apps = ['users','message','logs'];
+const apps = ['users'];
 
 const root = __dirname;
 

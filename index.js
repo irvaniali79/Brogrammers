@@ -4,7 +4,9 @@ const Services = require('./services/');
 
 const EE = require('eventemitter3')
 const eventEmitter = new EE();
-const app = new brogrammers(eventEmitter,undefined,config);
+const responseHandler = require('./Handlers/responseHandler/responseHandler');
+const errorHandler = require('./Handlers/errorHandler/errorHandler');
+const app = new brogrammers(eventEmitter,undefined,config,responseHandler,errorHandler);
 
 module.exports = {
     eventEmitter,
@@ -12,8 +14,6 @@ module.exports = {
     config
 }
 
-const responseHandler = require('./Handlers/responseHandler/responseHandler');
-const errorHandler = require('./Handlers/errorHandler/errorHandler');
 
 const userModel = require('./apps/users/models/user.model');
 app.use('auth',new Services.Auth(userModel,

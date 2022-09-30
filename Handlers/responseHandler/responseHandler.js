@@ -1,8 +1,6 @@
-const {eventEmitter} = require('../..');
-const config = require('../../config');
 
 
-eventEmitter.on(config.responseHandler.eventName,(req,res,result)=>{
+function responseHandler(req,res){
     const responses = {
         'image/svg':()=>{
             res.writeHead(res.status, { "Content-Type": res.type });
@@ -12,7 +10,7 @@ eventEmitter.on(config.responseHandler.eventName,(req,res,result)=>{
             res.response.pipe(res);
         },
         'default':()=>{
-            res.writeHead(res.status, { "Content-Type": res.type });
+            res.writeHead(res.status, { "Content-Type": "application/json" });
             res.end(res.response);
         }
 
@@ -22,5 +20,7 @@ eventEmitter.on(config.responseHandler.eventName,(req,res,result)=>{
     }
     responses[res.type]();
     return;
-})
+}
+
+module.exports = responseHandler;
 

@@ -1,9 +1,6 @@
-const {eventEmitter} = require('../..');
-const config = require('../../config');
 
-
-eventEmitter.on(config.errorHandler.eventName,(req,res,e)=>{
-    res.writeHead(e.code, { "Content-Type": "application/json" });
+function errorHandler(req,res,e){
+    res.writeHead(500, { "Content-Type": "application/json" });
 
     const Errors = {
         404:()=>{
@@ -19,4 +16,5 @@ eventEmitter.on(config.errorHandler.eventName,(req,res,e)=>{
         return;
     }
     Errors[e.code]();
-})
+};
+module.exports = errorHandler;
