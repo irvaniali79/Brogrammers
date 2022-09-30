@@ -12,7 +12,7 @@ const database = {
 };
 
 const router = {
-  eventName: "newReq",
+  eventName: "event",
 }
 
 const storage = {
@@ -22,7 +22,7 @@ const storage = {
 const server = {
     port: process.env.PORT ?? 8000,
     hostname: process.env.HOST ?? "127.0.0.1",
-    eventName: "newReq",
+    eventName: "event",
 }
 
 const errorHandler = {
