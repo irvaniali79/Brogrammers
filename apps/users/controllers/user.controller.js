@@ -10,7 +10,7 @@ async function signup(req,res,queryParams){
     });
     
     res.setHeader('Set-Cookie',result.cookie);
-    return result.user;
+    res.response(JSON.stringify(result.user));
 
 }
 
@@ -21,7 +21,7 @@ async function login(req,res,queryParams){
         user:params.user,
         password:params.password,
     });
-    return result.user;
+    res.response(JSON.stringify(result.user));
 
 
 }
