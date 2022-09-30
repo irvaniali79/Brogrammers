@@ -3,23 +3,20 @@ const config = require('../../config');
 
 
 eventEmitter.on(config.errorHandler.eventName,(req,res,e)=>{
+    res.writeHead(e.code, { "Content-Type": "application/json" });
+
     const Errors = {
-        '404':()=>{
-            res.writeHead(e.status, { "Content-Type": e.type });
-            res.end(res.response);
-        },
-        'pipe':()=>{
-            res.response.pipe(res);
+        404:()=>{
+            res.end(JSON.stringify(e.message));
         },
         'default':()=>{
-            res.writeHead(res.status, { "Content-Type": res.type });
-            res.end(res.response);
+            res.end(JSON.stringify(e.message));
         }
 
     }    
-    if(!(e.type in Errors)){
+    if(!(e.code in Errors)){
         Errors['default']();
+        return;
     }
-    Errors[e.type]();
-    return;
+    Errors[e.code]();
 })
