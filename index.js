@@ -33,6 +33,10 @@ async (model,credential,hash)=>{
         credential.user,
         hash(credential.password)
     ]).execute();
+
+    if(!result.length){
+        throw new Error();
+    }
     return result;
 }));
 

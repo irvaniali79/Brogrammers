@@ -25,6 +25,30 @@ function errorHandler(req,res,e){
                 message:"Internal server error"
             }));
         },
+        'database':()=>{
+            res.writeHead(500, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({
+                message:"Internal server error - models"
+            }));
+        },
+        'auth-database':()=>{
+            res.writeHead(500, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({
+                message:"Internal server error - redis"
+            }));
+        },
+        'auth-database-cookie':()=>{
+            res.writeHead(500, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({
+                message:"Internal server error - cookies system"
+            }));
+        },
+        'login-credential':()=>{
+            res.writeHead(401, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({
+                message:"user or password is wrong"
+            }));
+        },
         'default':()=>{
             res.writeHead(500, { "Content-Type": "application/json" });
             res.end(JSON.stringify(e.message));
