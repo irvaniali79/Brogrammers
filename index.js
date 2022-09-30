@@ -18,6 +18,7 @@ module.exports = {
     config
 }
 
+require('./Handlers/log/');
 
 const userModel = require('./apps/users/models/user.model');
 app.use('auth',new Services.Auth(userModel,
