@@ -10,7 +10,7 @@ const app = new brogrammers(eventEmitter,undefined,config,responseHandler,errorH
 
 
 
-app.use(logger,new LoggerFacade({driver:"file",filePath:config.root+'/log.txt'}));
+app.use('logger',new LoggerFacade({driver:"file",filePath:config.root+'/log.txt'}));
 
 module.exports = {
     eventEmitter,

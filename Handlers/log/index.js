@@ -1,4 +1,4 @@
-const {app, eventEmitter, config} = require('..');
+const {app, eventEmitter, config} = require('../..');
 
 eventEmitter.on(config.server.eventName,(req,res)=>{
     app.services.logger.message(`${req.headers.host}-${req.url}-${config.server.eventName}`,error.message,'event');
